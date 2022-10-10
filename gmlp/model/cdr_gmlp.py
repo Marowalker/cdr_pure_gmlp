@@ -141,7 +141,7 @@ class CDRgMLPModel:
                        y=train_data.labels,
                        validation_data=((val_data.words, val_data.poses, val_data.synsets, val_data.triples),
                                         val_data.labels),
-                       batch_size=16, epochs=constants.EPOCHS, callbacks=[early_stopping, model_checkpoint_callback])
+                       batch_size=32, epochs=constants.EPOCHS, callbacks=[early_stopping, model_checkpoint_callback])
 
         # self.model.save_weights(TRAINED_MODELS)
 
