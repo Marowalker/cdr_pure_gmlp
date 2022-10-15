@@ -33,19 +33,22 @@ vocab_words = load_vocab(constants.ALL_WORDS)
 chem_vocab = make_triple_vocab(constants.DATA + 'chemical2id.txt')
 dis_vocab = make_triple_vocab(constants.DATA + 'disease2id.txt')
 
-train = Dataset(constants.RAW_DATA + 'sdp_data_acentors_bert.train.txt',
+train = Dataset(constants.RAW_DATA + 'sentence_data_acentors.train.txt',
+                constants.RAW_DATA + 'sdp_data_acentors_bert.train.txt',
                 vocab_words=vocab_words,
                 vocab_poses=vocab_poses,
                 vocab_synset=vocab_synsets, vocab_rels=vocab_rels, vocab_chems=chem_vocab, vocab_dis=dis_vocab)
 pickle.dump(train, open(constants.PICKLE_DATA + 'train.pickle', 'wb'), pickle.HIGHEST_PROTOCOL)
 
-dev = Dataset(constants.RAW_DATA + 'sdp_data_acentors_bert.dev.txt',
+dev = Dataset(constants.RAW_DATA + 'sentence_data_acentors.dev.txt',
+              constants.RAW_DATA + 'sdp_data_acentors_bert.dev.txt',
               vocab_words=vocab_words,
               vocab_poses=vocab_poses,
               vocab_synset=vocab_synsets, vocab_rels=vocab_rels, vocab_chems=chem_vocab, vocab_dis=dis_vocab)
 pickle.dump(dev, open(constants.PICKLE_DATA + 'dev.pickle', 'wb'), pickle.HIGHEST_PROTOCOL)
 
-test = Dataset(constants.RAW_DATA + 'sdp_data_acentors_bert.test.txt',
+test = Dataset(constants.RAW_DATA + 'sentence_data_acentors.test.txt',
+               constants.RAW_DATA + 'sdp_data_acentors_bert.test.txt',
                vocab_words=vocab_words,
                vocab_poses=vocab_poses,
                vocab_synset=vocab_synsets, vocab_rels=vocab_rels, vocab_chems=chem_vocab, vocab_dis=dis_vocab)
@@ -55,7 +58,8 @@ pickle.dump(test, open(constants.PICKLE_DATA + 'test.pickle', 'wb'), pickle.HIGH
 validation = Dataset('', '', process_data=False)
 train_ratio = 0.85
 n_sample = int(len(dev.words) * (2 * train_ratio - 1))
-props = ['words', 'labels', 'poses', 'synsets', 'identities', 'triples']
+props = ['words', 'head_mask', 'e1_mask', 'e2_mask', 'relations', 'labels', 'poses', 'synsets', 'identities',
+         'triples']
 
 for prop in props:
     train.__dict__[prop].extend(dev.__dict__[prop][:n_sample])
@@ -65,7 +69,7 @@ train.get_padded_data()
 validation.get_padded_data()
 
 # print(train.relations)
-print(train.synsets)
+print(train.words)
 
 # wn_emb = get_trimmed_w2v_vectors('data/w2v_model/wordnet_embeddings.npz')
 #
