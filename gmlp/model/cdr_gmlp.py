@@ -55,8 +55,8 @@ class CDRgMLPModel:
         # self.position_2_ids = tf.keras.layers.Input(shape=(self.max_length,), dtype='int32')
 
     def _bert_layer(self):
-        emb = tf.keras.Layers.Embedding(self.num_of_words + 1, constants.INPUT_W2V_DIM, weights=[self.word_emb],
-                                        trainable=False)
+        emb = tf.keras.layers.Embedding(self.num_of_words + 1, constants.INPUT_W2V_DIM, weights=[self.word_emb],
+                                        trainable=False)(self.input_ids)
 
         pos_emb = tf.keras.layers.Embedding(self.num_of_pos + 1, 6)(self.pos_ids)
 
