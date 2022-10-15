@@ -8,8 +8,8 @@ UNK = '$UNK$'
 parser = argparse.ArgumentParser(description='Multi-region size gMLP with BERT for re')
 parser.add_argument('-i', help='Job identity', type=int, default=0)
 parser.add_argument('-rb', help='Rebuild data', type=int, default=1)
-parser.add_argument('-e', help='Number of epochs', type=int, default=80)
-parser.add_argument('-p', help='Patience of early stop (0 for ignore early stop)', type=int, default=10)
+parser.add_argument('-e', help='Number of epochs', type=int, default=20)
+parser.add_argument('-p', help='Patience of early stop (0 for ignore early stop)', type=int, default=5)
 parser.add_argument('-config', help='CNN configurations default \'1:128\'', type=str, default='2:32')
 parser.add_argument('-len', help='Max sentence or document length', type=int, default=210)
 
